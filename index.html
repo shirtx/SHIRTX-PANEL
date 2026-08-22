@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHIRTX PANEL</title>
+
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+html,body{
+ margin:0;
+ width:100%;
+ min-height:100%;
+ background:#000;
+ color:#fff;
+ font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+ overflow-x:hidden;
+}
+
+#stars{
+ position:fixed;
+ inset:0;
+ overflow:hidden;
+ z-index:0;
+ pointer-events:none;
+}
+
+.star{
+ position:absolute;
+ width:2px;
+ height:2px;
+ background:#fff;
+ border-radius:50%;
+ opacity:.7;
+ animation:move 10s linear infinite;
+}
+
+@keyframes move{
+ 0%{transform:translate(0,0)}
+ 100%{transform:translate(-80px,120px)}
+}
+
+.panel{
+ position:relative;
+ z-index:1;
+ width:min(700px,94%);
+ margin:auto;
+ padding:55px 0 30px;
+}
+
+.avatar{
+ width:155px;
+ height:155px;
+ margin:auto;
+ border-radius:50%;
+ border:4px solid #777;
+ box-shadow:0 0 30px #aaa;
+ overflow:hidden;
+ background:#222;
+}
+
+.avatar img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ filter:grayscale(100%);
+}
+
+.title{
+ text-align:center;
+ font-size:50px;
+ font-weight:900;
+ margin:28px 0 70px;
+}
+
+.card{
+ min-height:145px;
+ padding:22px;
+ margin:20px 0;
+ border:1px solid #666;
+ border-radius:30px;
+ background:#171717;
+ display:flex;
+ align-items:center;
+ gap:22px;
+}
+
+.icon{
+ width:92px;
+ height:82px;
+ border-radius:20px;
+ background:#000;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:42px;
+ flex-shrink:0;
+}
+
+.info{
+ flex:1;
+ min-width:0;
+}
+
+.name{
+ font-size:32px;
+ font-weight:800;
+ white-space:nowrap;
+}
+
+.sub{
+ margin-top:8px;
+ color:#aaa;
+ font-size:20px;
+}
+
+.switch{
+ width:124px;
+ height:70px;
+ border:0;
+ border-radius:50px;
+ background:#666;
+ padding:7px;
+ flex-shrink:0;
+}
+
+.switch span{
+ display:block;
+ width:56px;
+ height:56px;
+ border-radius:50%;
+ background:#fff;
+ transition:.2s;
+}
+
+.switch.on{
+ background:#777;
+}
+
+.switch.on span{
+ transform:translateX(54px);
+}
+
+.buttons{
+ display:flex;
+ gap:22px;
+ margin-top:22px;
+}
+
+.start{
+ flex:1;
+ height:68px;
+ border:1px solid #666;
+ border-radius:25px;
+ background:#202020;
+ color:#fff;
+ font-size:25px;
+ font-weight:800;
+}
+
+.start:active{
+ transform:scale(.94);
+ background:#444;
+}
+
+.status{
+ text-align:center;
+ color:#aaa;
+ font-size:20px;
+ margin-top:30px;
+}
+
+.footer{
+ text-align:center;
+ color:#777;
+ letter-spacing:8px;
+ margin-top:40px;
+}
+
+@media(max-width:500px){
+ .panel{padding-top:35px}
+ .avatar{width:125px;height:125px}
+ .title{font-size:44px;margin-bottom:55px}
+ .card{min-height:120px;padding:18px;border-radius:25px}
+ .icon{width:80px;height:72px;font-size:35px}
+ .name{font-size:25px}
+ .sub{font-size:18px}
+ .switch{width:115px;height:62px}
+ .switch span{width:48px;height:48px}
+ .switch.on span{transform:translateX(53px)}
+ .buttons{gap:12px}
+ .start{height:62px;font-size:19px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<main class="panel">
+
+<div class="avatar">
+  <!-- เปลี่ยนรูปโปรไฟล์ตรง src นี้ได้ภายหลัง -->
+  <img src="https://i.imgur.com/8Km9tLL.jpeg" alt="Profile">
+</div>
+
+<div class="title">SHIRTX</div>
+
+<div class="card">
+ <div class="icon">🎯</div>
+ <div class="info">
+  <div class="name">Reduzir Recuo</div>
+  <div class="sub">UI Demo</div>
+ </div>
+ <button class="switch" onclick="toggle(this,'Reduzir Recuo')">
+  <span></span>
+ </button>
+</div>
+
+<div class="card">
+ <div class="icon">⚡</div>
+ <div class="info">
+  <div class="name">Aumentar FPS</div>
+  <div class="sub">UI Demo</div>
+ </div>
+ <button class="switch" onclick="toggle(this,'Aumentar FPS')">
+  <span></span>
+ </button>
+</div>
+
+<div class="card">
+ <div class="icon">☝️</div>
+ <div class="info">
+  <div class="name">Otimizar Touch</div>
+  <div class="sub">UI Demo</div>
+ </div>
+ <button class="switch" onclick="toggle(this,'Otimizar Touch')">
+  <span></span>
+ </button>
+</div>
+
+<div class="card">
+ <div class="icon">🎮</div>
+ <div class="info">
+  <div class="name">Retirar Input Lag</div>
+  <div class="sub">UI Demo</div>
+ </div>
+ <button class="switch" onclick="toggle(this,'Retirar Input Lag')">
+  <span></span>
+ </button>
+</div>
+
+<div class="buttons">
+
+<button class="start" onclick="startFF()">
+ ⚡ START FF
+</button>
+
+<button class="start" onclick="startFFMAX()">
+ ⚡ START FF MAX
+</button>
+
+</div>
+
+<div id="status" class="status">
+ STATUS : READY
+</div>
+
+<div class="footer">
+ S H I R T X &nbsp; P A N E L
+</div>
+
+</main>
+
+<script>
+function toggle(button,name){
+ button.classList.toggle("on");
+
+ const active=button.classList.contains("on");
+
+ document.getElementById("status").textContent=
+ active ? "STATUS : "+name+" ON" : "STATUS : READY";
+}
+
+function startFF(){
+ location.href=
+ "intent://#Intent;scheme=freefire;package=com.dts.freefireth;end";
+}
+
+function startFFMAX(){
+ location.href=
+ "intent://#Intent;scheme=freefire;package=com.dts.freefiremax;end";
+}
+
+const stars=document.getElementById("stars");
+
+for(let i=0;i<70;i++){
+ const s=document.createElement("div");
+ s.className="star";
+ s.style.left=Math.random()*100+"%";
+ s.style.top=Math.random()*100+"%";
+ s.style.animationDelay=(Math.random()*10)+"s";
+ stars.appendChild(s);
+}
+</script>
+
+</body>
+   </html>
