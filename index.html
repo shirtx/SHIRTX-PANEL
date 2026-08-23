@@ -310,5 +310,11 @@ for(let i=0;i<70;i++){
 }
 </script>
 
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js");
+}
+</script>
+
 </body>
 </html>
