@@ -8,9 +8,14 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "./Messenger_creation_EE58EC70-CFDC-4C22-8D57-3C3DB93E80B7.jpeg",
+      "src": "./icon-192.png",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
