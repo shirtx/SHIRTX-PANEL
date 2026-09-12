@@ -5,6 +5,7 @@
 <link rel="manifest" href="./manifest.json">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SHIRTX PANEL</title>
+
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
@@ -16,6 +17,7 @@ html,body{
  color:#fff;
  font-family:Arial,Helvetica,sans-serif;
 }
+
 body{overflow-x:hidden}
 
 #stars{
@@ -143,13 +145,11 @@ body{overflow-x:hidden}
 }
 
 .buttons{
- display:flex;
- gap:22px;
  margin-top:22px
 }
 
 .start{
- flex:1;
+ width:100%;
  height:68px;
  border:1px solid #666;
  border-radius:25px;
@@ -164,11 +164,57 @@ body{overflow-x:hidden}
  background:#444
 }
 
+.selector{
+ display:none;
+ margin-top:14px;
+ padding:16px;
+ border:1px solid #666;
+ border-radius:25px;
+ background:#171717;
+ gap:12px
+}
+
+.selector.show{
+ display:flex
+}
+
+.game{
+ flex:1;
+ height:58px;
+ border:1px solid #666;
+ border-radius:18px;
+ background:#202020;
+ color:#fff;
+ font-size:19px;
+ font-weight:800
+}
+
+.game:active{
+ transform:scale(.95);
+ background:#444
+}
+
 .status{
  text-align:center;
  color:#aaa;
  font-size:20px;
- margin-top:30px
+ margin-top:18px;
+ min-height:28px
+}
+
+.status.pop{
+ animation:statusPop .25s ease
+}
+
+@keyframes statusPop{
+ 0%{
+  transform:scale(.85);
+  opacity:.2
+ }
+ 100%{
+  transform:scale(1);
+  opacity:1
+ }
 }
 
 .footer{
@@ -179,18 +225,57 @@ body{overflow-x:hidden}
 }
 
 @media(max-width:500px){
+
  .panel{padding-top:35px}
- .avatar{width:125px;height:125px}
- .title{font-size:44px;margin-bottom:55px}
- .card{min-height:120px;padding:18px;border-radius:25px}
- .icon{width:80px;height:72px;font-size:35px}
- .name{font-size:25px}
- .sub{font-size:18px}
- .switch{width:115px;height:62px}
- .switch span{width:48px;height:48px}
- .switch.on span{transform:translateX(53px)}
- .buttons{gap:12px}
- .start{height:62px;font-size:19px}
+
+ .avatar{
+  width:125px;
+  height:125px
+ }
+
+ .title{
+  font-size:44px;
+  margin-bottom:55px
+ }
+
+ .card{
+  min-height:120px;
+  padding:18px;
+  border-radius:25px
+ }
+
+ .icon{
+  width:80px;
+  height:72px;
+  font-size:35px
+ }
+
+ .name{
+  font-size:25px
+ }
+
+ .sub{
+  font-size:18px
+ }
+
+ .switch{
+  width:115px;
+  height:62px
+ }
+
+ .switch span{
+  width:48px;
+  height:48px
+ }
+
+ .switch.on span{
+  transform:translateX(53px)
+ }
+
+ .start{
+  height:62px;
+  font-size:19px
+ }
 }
 </style>
 </head>
@@ -210,48 +295,83 @@ body{overflow-x:hidden}
 
 <div class="card">
  <div class="icon">🎯</div>
+
  <div class="info">
   <div class="name">Reduzir Recuo</div>
   <div class="sub">UI Demo</div>
  </div>
- <button class="switch" onclick="toggle(this,'Reduzir Recuo')"><span></span></button>
+
+ <button class="switch" onclick="toggle(this,'Reduzir Recuo')">
+  <span></span>
+ </button>
 </div>
 
 <div class="card">
  <div class="icon">⚡</div>
+
  <div class="info">
   <div class="name">Aumentar FPS</div>
   <div class="sub">UI Demo</div>
  </div>
- <button class="switch" onclick="toggle(this,'Aumentar FPS')"><span></span></button>
+
+ <button class="switch" onclick="toggle(this,'Aumentar FPS')">
+  <span></span>
+ </button>
 </div>
 
 <div class="card">
  <div class="icon">☝️</div>
+
  <div class="info">
   <div class="name">Otimizar Touch</div>
   <div class="sub">UI Demo</div>
  </div>
- <button class="switch" onclick="toggle(this,'Otimizar Touch')"><span></span></button>
+
+ <button class="switch" onclick="toggle(this,'Otimizar Touch')">
+  <span></span>
+ </button>
 </div>
 
 <div class="card">
  <div class="icon">🎮</div>
+
  <div class="info">
   <div class="name">Retirar Input Lag</div>
   <div class="sub">UI Demo</div>
  </div>
- <button class="switch" onclick="toggle(this,'Retirar Input Lag')"><span></span></button>
+
+ <button class="switch" onclick="toggle(this,'Retirar Input Lag')">
+  <span></span>
+ </button>
 </div>
 
 <div class="buttons">
- <button class="start" onclick="startFF()">⚡ START FF</button>
- <button class="start" onclick="startFFMAX()">⚡ START FF MAX</button>
+
+ <button class="start" onclick="showGameSelector()">
+  ⚡ ATIVAR NO JOGO
+ </button>
+
 </div>
 
-<div id="status" class="status">STATUS : READY</div>
+<div id="selector" class="selector">
 
-<div class="footer">S H I R T X &nbsp; P A N E L</div>
+ <button class="game" onclick="startFF()">
+  FREE FIRE
+ </button>
+
+ <button class="game" onclick="startFFMAX()">
+  FREE FIRE MAX
+ </button>
+
+</div>
+
+<div id="status" class="status">
+ STATUS : READY
+</div>
+
+<div class="footer">
+ S H I R T X &nbsp; P A N E L
+</div>
 
 </main>
 
@@ -266,7 +386,15 @@ function toggle(button,name){
  const status=document.getElementById("status");
 
  status.textContent=
- active ? "✓ ATIVADA "+name : "× DESATIVADA "+name;
+ active
+ ? "✓ ATIVADA "+name
+ : "× DESATIVADA "+name;
+
+ status.classList.remove("pop");
+
+ void status.offsetWidth;
+
+ status.classList.add("pop");
 
  clearTimeout(window.statusTimer);
 
@@ -275,17 +403,34 @@ function toggle(button,name){
   status.textContent="STATUS : READY";
 
  },3000);
+
 }
+
+
+function showGameSelector(){
+
+ document
+  .getElementById("selector")
+  .classList.toggle("show");
+
+}
+
 
 function startFF(){
+
  location.href=
  "intent://#Intent;scheme=freefire;package=com.dts.freefireth;end";
+
 }
 
+
 function startFFMAX(){
+
  location.href=
  "intent://#Intent;scheme=freefire;package=com.dts.freefiremax;end";
+
 }
+
 
 const stars=document.getElementById("stars");
 
@@ -302,14 +447,19 @@ for(let i=0;i<70;i++){
  s.style.animationDelay=(Math.random()*10)+"s";
 
  stars.appendChild(s);
+
 }
 
 </script>
 
 <script>
+
 if ("serviceWorker" in navigator) {
+
  navigator.serviceWorker.register("./sw.js");
+
 }
+
 </script>
 
 </body>
