@@ -4,56 +4,277 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SHIRTX PANEL</title>
+
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;width:100%;min-height:100%;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
+
+html,body{
+ margin:0;
+ padding:0;
+ width:100%;
+ min-height:100%;
+ background:#000;
+ color:#fff;
+ font-family:Arial,Helvetica,sans-serif
+}
+
 body{overflow-x:hidden}
-#stars{position:fixed;inset:0;overflow:hidden;background:#000;z-index:0}
-.star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.7;animation:starMove linear infinite,starBlink ease-in-out infinite alternate}
-@keyframes starMove{0%{transform:translate(0,0)}50%{transform:translate(-40px,60px)}100%{transform:translate(-90px,130px)}}
-@keyframes starBlink{0%{opacity:.15}100%{opacity:1}}
-.panel{position:relative;z-index:1;width:100%;max-width:720px;margin:auto;padding:55px 22px 70px}
-.avatar{width:155px;height:155px;margin:0 auto;border-radius:50%;border:4px solid #777;background:#222;box-shadow:0 0 15px #777,0 0 35px #444;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%)}
-.title{text-align:center;font-size:58px;font-weight:900;margin-top:28px;margin-bottom:72px;letter-spacing:-2px}
-.card{width:100%;min-height:150px;margin-bottom:20px;padding:25px;display:flex;align-items:center;border-radius:30px;background:#171717;border:1px solid #555;transition:transform .15s ease,border-color .15s ease}
-.card:active{transform:scale(.985)}
-.icon{width:92px;height:92px;flex-shrink:0;border-radius:20px;background:#030303;display:flex;align-items:center;justify-content:center;font-size:44px}
-.info{flex:1;min-width:0;padding-left:22px}
-.name{font-size:34px;font-weight:800;white-space:nowrap}
-.sub{margin-top:7px;color:#aaa;font-size:20px}
-.switch{width:124px;height:70px;flex-shrink:0;border:0;outline:none;padding:8px;border-radius:50px;background:#5b5b5b;position:relative;cursor:pointer;appearance:none;-webkit-appearance:none;transition:background .2s ease,transform .1s ease}
-.switch:active{transform:scale(.93)}
-.switch::after{content:"";position:absolute;width:54px;height:54px;left:8px;top:8px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35);transition:left .22s cubic-bezier(.2,.8,.2,1)}
-.switch.active{background:#777}
-.switch.active::after{left:62px}
-.buttons{display:flex;gap:22px;width:100%;margin-top:22px}
-.start{flex:1;height:82px;border-radius:25px;border:1px solid #666;background:#202020;color:#fff;font-size:25px;font-weight:900;cursor:pointer;transition:transform .12s ease,background .12s ease,box-shadow .12s ease}
-.start:active{transform:scale(.92);background:#444;box-shadow:0 0 10px #fff,0 0 25px #777}
-.status{text-align:center;color:#aaa;font-size:21px;margin-top:30px;min-height:26px}
-.footer{text-align:center;color:#555;font-size:18px;letter-spacing:8px;margin-top:40px}
+
+#stars{
+ position:fixed;
+ inset:0;
+ overflow:hidden;
+ background:#000;
+ z-index:0
+}
+
+.star{
+ position:absolute;
+ width:2px;
+ height:2px;
+ background:#fff;
+ border-radius:50%;
+ opacity:.7;
+ animation:starMove linear infinite,starBlink ease-in-out infinite alternate
+}
+
+@keyframes starMove{
+ 0%{transform:translate(0,0)}
+ 50%{transform:translate(-40px,60px)}
+ 100%{transform:translate(-90px,130px)}
+}
+
+@keyframes starBlink{
+ 0%{opacity:.15}
+ 100%{opacity:1}
+}
+
+.panel{
+ position:relative;
+ z-index:1;
+ width:100%;
+ max-width:720px;
+ margin:auto;
+ padding:55px 22px 70px
+}
+
+.avatar{
+ width:155px;
+ height:155px;
+ margin:0 auto;
+ border-radius:50%;
+ border:4px solid #777;
+ background:#222;
+ box-shadow:0 0 15px #777,0 0 35px #444;
+ overflow:hidden
+}
+
+.avatar img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ filter:grayscale(100%)
+}
+
+.title{
+ text-align:center;
+ font-size:58px;
+ font-weight:900;
+ margin-top:28px;
+ margin-bottom:72px;
+ letter-spacing:-2px
+}
+
+.card{
+ width:100%;
+ min-height:150px;
+ margin-bottom:20px;
+ padding:25px;
+ display:flex;
+ align-items:center;
+ border-radius:30px;
+ background:#171717;
+ border:1px solid #555;
+ transition:transform .15s ease,border-color .15s ease
+}
+
+.card:active{
+ transform:scale(.985)
+}
+
+.icon{
+ width:92px;
+ height:92px;
+ flex-shrink:0;
+ border-radius:20px;
+ background:#030303;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:44px
+}
+
+.info{
+ flex:1;
+ min-width:0;
+ padding-left:22px
+}
+
+.name{
+ font-size:34px;
+ font-weight:800;
+ white-space:nowrap
+}
+
+.sub{
+ margin-top:7px;
+ color:#aaa;
+ font-size:20px
+}
+
+.switch{
+ width:124px;
+ height:70px;
+ flex-shrink:0;
+ border:0;
+ outline:none;
+ padding:8px;
+ border-radius:50px;
+ background:#5b5b5b;
+ position:relative;
+ cursor:pointer;
+ appearance:none;
+ -webkit-appearance:none;
+ transition:background .2s ease,transform .1s ease
+}
+
+.switch:active{
+ transform:scale(.93)
+}
+
+.switch::after{
+ content:"";
+ position:absolute;
+ width:54px;
+ height:54px;
+ left:8px;
+ top:8px;
+ border-radius:50%;
+ background:#fff;
+ box-shadow:0 1px 3px rgba(0,0,0,.35);
+ transition:left .22s cubic-bezier(.2,.8,.2,1)
+}
+
+.switch.active{
+ background:#777
+}
+
+.switch.active::after{
+ left:62px
+}
+
+.buttons{
+ display:flex;
+ gap:22px;
+ width:100%;
+ margin-top:22px
+}
+
+.start{
+ flex:1;
+ height:82px;
+ border-radius:25px;
+ border:1px solid #666;
+ background:#202020;
+ color:#fff;
+ font-size:25px;
+ font-weight:900;
+ cursor:pointer;
+ transition:transform .12s ease,background .12s ease,box-shadow .12s ease
+}
+
+.start:active{
+ transform:scale(.92);
+ background:#444;
+ box-shadow:0 0 10px #fff,0 0 25px #777
+}
+
+.status{
+ text-align:center;
+ color:#aaa;
+ font-size:21px;
+ margin-top:30px;
+ min-height:26px
+}
+
+.footer{
+ text-align:center;
+ color:#555;
+ font-size:18px;
+ letter-spacing:8px;
+ margin-top:40px
+}
+
 @media(max-width:500px){
-.panel{padding:55px 22px 70px}
-.avatar{width:155px;height:155px}
-.title{font-size:50px;margin-bottom:72px}
-.card{min-height:145px;padding:22px}
-.icon{width:82px;height:82px;font-size:38px}
-.name{font-size:27px}
-.sub{font-size:18px}
-.switch{width:124px;height:70px}
-.buttons{gap:22px}
-.start{height:68px;font-size:20px}
+
+ .panel{
+  padding:55px 22px 70px
+ }
+
+ .avatar{
+  width:155px;
+  height:155px
+ }
+
+ .title{
+  font-size:50px;
+  margin-bottom:72px
+ }
+
+ .card{
+  min-height:145px;
+  padding:22px
+ }
+
+ .icon{
+  width:82px;
+  height:82px;
+  font-size:38px
+ }
+
+ .name{
+  font-size:27px
+ }
+
+ .sub{
+  font-size:18px
+ }
+
+ .switch{
+  width:124px;
+  height:70px
+ }
+
+ .buttons{
+  gap:22px
+ }
+
+ .start{
+  height:68px;
+  font-size:20px
+ }
 }
 </style>
 </head>
 
 <body>
+
 <div id="stars"></div>
 
 <div class="panel">
 
 <div class="avatar">
-<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/7QBEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAACgcAigAIkZCTUQzMDAwMDJiNTAxMDAwMDFlMmMwMDAwYzgzOTAwMDAA" alt="SHIRTX">
+<img src="./Messenger_creation_EE58EC70-CFDC-4C22-8D57-3C3DB93E80B7.jpeg" alt="SHIRTX">
 </div>
 
 <div class="title">SHIRTX</div>
@@ -94,6 +315,7 @@ body{overflow-x:hidden}
 <button class="switch" onclick="toggleFunction(this,'Retirar Input Lag')"></button>
 </div>
 
+<!-- แก้เฉพาะปุ่มเข้าเกม -->
 <div class="buttons">
 <button class="start" onclick="startFF(this)">⚡ Abrir Free Fire</button>
 </div>
@@ -107,11 +329,15 @@ S H I R T . X &nbsp;&nbsp; P A N E L
 </div>
 
 <script>
+
 const stars=document.getElementById("stars");
 
 for(let i=0;i<120;i++){
+
  const star=document.createElement("div");
+
  star.className="star";
+
  star.style.left=Math.random()*100+"vw";
  star.style.top=Math.random()*100+"vh";
 
@@ -132,6 +358,7 @@ for(let i=0;i<120;i++){
 }
 
 function toggleFunction(button,name){
+
  button.classList.toggle("active");
 
  document.getElementById("status").textContent=
@@ -141,13 +368,17 @@ function toggleFunction(button,name){
 }
 
 function startFF(button){
+
  button.classList.add("clicking");
 
  setTimeout(function(){
+
   location.href=
   'intent://#Intent;scheme=freefire;package=com.dts.freefireth;end';
+
  },180);
 }
+
 </script>
 
 </body>
