@@ -2,392 +2,381 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SHIRTX PANEL</title>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;width:100%;min-height:100%;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
-body{overflow-x:hidden}
-
-#stars{
-position:fixed;
-inset:0;
-overflow:hidden;
-background:#000;
-z-index:0
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-.star{
-position:absolute;
-width:2px;
-height:2px;
-background:#fff;
-border-radius:50%;
-opacity:.7;
-animation:starMove linear infinite,starBlink ease-in-out infinite alternate
+body{
+  margin:0;
+  min-height:100vh;
+  background:#050505;
+  color:white;
+  font-family:Arial,sans-serif;
+  overflow-x:hidden;
 }
 
-@keyframes starMove{
-0%{transform:translate(0,0)}
-50%{transform:translate(-40px,60px)}
-100%{transform:translate(-90px,130px)}
+/* ดาวพื้นหลัง */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    radial-gradient(2px 2px at 10% 20%,#fff,transparent),
+    radial-gradient(2px 2px at 30% 70%,#fff,transparent),
+    radial-gradient(1px 1px at 50% 40%,#fff,transparent),
+    radial-gradient(2px 2px at 70% 15%,#fff,transparent),
+    radial-gradient(1px 1px at 90% 80%,#fff,transparent),
+    radial-gradient(2px 2px at 80% 55%,#fff,transparent),
+    radial-gradient(1px 1px at 20% 90%,#fff,transparent);
+  background-size:300px 300px;
+  animation:stars 12s linear infinite;
+  opacity:.7;
+  z-index:-1;
 }
 
-@keyframes starBlink{
-0%{opacity:.15}
-100%{opacity:1}
+@keyframes stars{
+  from{
+    transform:translateY(0);
+  }
+  to{
+    transform:translateY(-300px);
+  }
 }
 
-.panel{
-position:relative;
-z-index:1;
-width:100%;
-max-width:720px;
-margin:auto;
-padding:55px 22px 70px
+.container{
+  width:92%;
+  max-width:650px;
+  margin:25px auto;
+  padding:25px;
+  background:#101010;
+  border:1px solid #333;
+  border-radius:30px;
+  box-shadow:0 0 30px rgba(255,255,255,.08);
 }
 
-.avatar{
-width:155px;
-height:155px;
-margin:0 auto;
-border-radius:50%;
-border:4px solid #777;
-background:#222;
-box-shadow:0 0 15px #777,0 0 35px #444;
-overflow:hidden
+.page{
+  display:none;
 }
 
-.avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-filter:grayscale(100%)
+.page.active{
+  display:block;
+}
+
+/* PROFILE */
+.profile{
+  width:210px;
+  height:210px;
+  border-radius:50%;
+  overflow:hidden;
+  margin:0 auto 20px;
+  border:4px solid #777;
+  box-shadow:0 0 25px rgba(255,255,255,.15);
+}
+
+.profile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 
 .title{
-text-align:center;
-font-size:58px;
-font-weight:900;
-margin-top:28px;
-margin-bottom:72px;
-letter-spacing:-2px
+  text-align:center;
+  font-size:30px;
+  font-weight:bold;
+  letter-spacing:4px;
+  margin-bottom:25px;
 }
 
-.card{
-width:100%;
-min-height:150px;
-margin-bottom:20px;
-padding:25px;
-display:flex;
-align-items:center;
-border-radius:30px;
-background:#171717;
-border:1px solid #555;
-transition:transform .15s ease,border-color .15s ease
+.menu{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
 
-.card:active{
-transform:scale(.985)
+.menu button,
+.game-btn{
+  border:1px solid #444;
+  background:#191919;
+  color:white;
+  border-radius:18px;
+  padding:20px 10px;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.menu button:active,
+.game-btn:active{
+  transform:scale(.95);
+}
+
+.function-list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.function-card{
+  background:#181818;
+  border:1px solid #3b3b3b;
+  border-radius:22px;
+  padding:20px 15px;
+  text-align:center;
+  transition:.2s;
+}
+
+.function-card:active{
+  transform:scale(.97);
 }
 
 .icon{
-width:92px;
-height:92px;
-flex-shrink:0;
-border-radius:20px;
-background:#030303;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:44px
+  font-size:40px;
+  margin-bottom:10px;
 }
 
-.info{
-flex:1;
-min-width:0;
-padding-left:22px
-}
-
-.name{
-font-size:34px;
-font-weight:800;
-white-space:nowrap
+.function-name{
+  font-size:17px;
+  font-weight:bold;
+  margin-bottom:8px;
 }
 
 .sub{
-margin-top:7px;
-color:#aaa;
-font-size:20px
+  color:#888;
+  font-size:13px;
+  margin-bottom:15px;
 }
 
-.switch{
-width:124px;
-height:70px;
-flex-shrink:0;
-border:0;
-outline:none;
-padding:8px;
-border-radius:50px;
-background:#5b5b5b;
-position:relative;
-cursor:pointer;
-appearance:none;
--webkit-appearance:none;
-transition:background .2s ease,transform .1s ease
+.toggle{
+  width:58px;
+  height:30px;
+  margin:auto;
+  border-radius:30px;
+  background:#333;
+  position:relative;
+  cursor:pointer;
+  transition:.25s;
 }
 
-.switch:active{
-transform:scale(.93)
+.toggle::after{
+  content:"";
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:#aaa;
+  position:absolute;
+  top:3px;
+  left:4px;
+  transition:.25s;
 }
 
-.switch::after{
-content:"";
-position:absolute;
-width:54px;
-height:54px;
-left:8px;
-top:8px;
-border-radius:50%;
-background:#fff;
-box-shadow:0 1px 3px rgba(0,0,0,.35);
-transition:left .22s cubic-bezier(.2,.8,.2,1)
+.toggle.on{
+  background:#fff;
 }
 
-.switch.active{
-background:#777
+.toggle.on::after{
+  left:30px;
+  background:#111;
 }
 
-.switch.active::after{
-left:62px
+.back{
+  width:100%;
+  margin-top:20px;
+  border:1px solid #444;
+  background:#151515;
+  color:white;
+  border-radius:18px;
+  padding:17px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.buttons{
-display:flex;
-gap:22px;
-width:100%;
-margin-top:22px
+.game-panel{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  padding-top:20px;
 }
 
-.start{
-flex:1;
-height:82px;
-border-radius:25px;
-border:1px solid #666;
-background:#202020;
-color:#fff;
-font-size:25px;
-font-weight:900;
-cursor:pointer;
-transition:transform .12s ease,background .12s ease,box-shadow .12s ease
-}
-
-.start:active{
-transform:scale(.92);
-background:#444;
-box-shadow:0 0 10px #fff,0 0 25px #777
-}
-
-.status{
-text-align:center;
-color:#aaa;
-font-size:21px;
-margin-top:30px;
-min-height:26px
-}
-
-.footer{
-text-align:center;
-color:#555;
-font-size:18px;
-letter-spacing:8px;
-margin-top:40px
+.game-btn{
+  width:100%;
+  min-height:80px;
 }
 
 @media(max-width:500px){
+  .container{
+    width:94%;
+    padding:20px;
+  }
 
-.panel{
-padding:55px 22px 70px
-}
+  .profile{
+    width:180px;
+    height:180px;
+  }
 
-.avatar{
-width:155px;
-height:155px
-}
+  .function-list{
+    grid-template-columns:1fr;
+  }
 
-.title{
-font-size:50px;
-margin-bottom:72px
-}
-
-.card{
-min-height:145px;
-padding:22px
-}
-
-.icon{
-width:82px;
-height:82px;
-font-size:38px
-}
-
-.name{
-font-size:27px
-}
-
-.sub{
-font-size:18px
-}
-
-.switch{
-width:124px;
-height:70px
-}
-
-.buttons{
-gap:22px
-}
-
-.start{
-height:68px;
-font-size:20px
-}
-
+  .title{
+    font-size:25px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="stars"></div>
+<div class="container">
 
-<div class="panel">
+  <!-- หน้าหลัก -->
+  <section id="home" class="page active">
 
-<div class="avatar">
-<img src="./Messenger_creation_EE58EC70-CFDC-4C22-8D57-3C3DB93E80B7.jpeg" alt="SHIRTX">
+    <!-- โปรไฟล์ที่ใส่ให้ -->
+    <div class="profile">
+      <img
+        src="./Messenger_creation_EE58EC70-CFDC-4C22-8D57-3C3D B93E80B7.jpeg"
+        alt="SHIRTX"
+      >
+    </div>
+
+    <div class="title">SHIRTX</div>
+
+    <div class="menu">
+      <button onclick="showPage('functions')">
+        FUNCTION
+      </button>
+
+      <button onclick="showPage('games')">
+        CHOOSE
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- หน้า FUNCTION -->
+  <section id="functions" class="page">
+
+    <div class="title">FUNCTION</div>
+
+    <div class="function-list">
+
+      <div class="function-card">
+        <div class="icon">🎯</div>
+        <div class="function-name">Reduzir Recuo</div>
+        <div class="sub">UI Demo</div>
+        <div class="toggle" onclick="toggleFunction(this)"></div>
+      </div>
+
+      <div class="function-card">
+        <div class="icon">⚡</div>
+        <div class="function-name">Aumentar FPS</div>
+        <div class="sub">UI Demo</div>
+        <div class="toggle" onclick="toggleFunction(this)"></div>
+      </div>
+
+      <div class="function-card">
+        <div class="icon">👆</div>
+        <div class="function-name">Otimizar Touch</div>
+        <div class="sub">UI Demo</div>
+        <div class="toggle" onclick="toggleFunction(this)"></div>
+      </div>
+
+      <div class="function-card">
+        <div class="icon">🚀</div>
+        <div class="function-name">Retirar Input Lag</div>
+        <div class="sub">UI Demo</div>
+        <div class="toggle" onclick="toggleFunction(this)"></div>
+      </div>
+
+    </div>
+
+    <button class="back" onclick="showPage('home')">
+      VOLTAR
+    </button>
+
+  </section>
+
+
+  <!-- หน้า CHOOSE -->
+  <section id="games" class="page">
+
+    <div class="game-panel">
+
+      <button class="game-btn" onclick="openGame('ff')">
+        ABRIR FREE FIRE
+      </button>
+
+      <button class="game-btn" onclick="openGame('max')">
+        ABRIR FREE FIRE MAX
+      </button>
+
+    </div>
+
+    <button class="back" onclick="showPage('home')">
+      VOLTAR
+    </button>
+
+  </section>
+
 </div>
 
-<div class="title">SHIRTX</div>
-
-<div class="card">
-<div class="icon">🎯</div>
-<div class="info">
-<div class="name">Reduzir Recuo</div>
-<div class="sub">UI Demo</div>
-</div>
-<button class="switch" onclick="toggleFunction(this,'Reduzir Recuo')"></button>
-</div>
-
-<div class="card">
-<div class="icon">⚡</div>
-<div class="info">
-<div class="name">Aumentar FPS</div>
-<div class="sub">UI Demo</div>
-</div>
-<button class="switch" onclick="toggleFunction(this,'Aumentar FPS')"></button>
-</div>
-
-<div class="card">
-<div class="icon">☝️</div>
-<div class="info">
-<div class="name">Otimizar Touch</div>
-<div class="sub">UI Demo</div>
-</div>
-<button class="switch" onclick="toggleFunction(this,'Otimizar Touch')"></button>
-</div>
-
-<div class="card">
-<div class="icon">🎮</div>
-<div class="info">
-<div class="name">Retirar Input Lag</div>
-<div class="sub">UI Demo</div>
-</div>
-<button class="switch" onclick="toggleFunction(this,'Retirar Input Lag')"></button>
-</div>
-
-<div class="buttons">
-<button class="start" onclick="startFF(this)">⚡ Abrir Free Fire</button>
-</div>
-
-<div class="status" id="status">STATUS : READY</div>
-
-<div class="footer">
-S H I R T . X &nbsp;&nbsp; P A N E L
-</div>
-
-</div>
 
 <script>
 
-const stars=document.getElementById("stars");
+function showPage(page){
 
-for(let i=0;i<120;i++){
+  document.querySelectorAll('.page').forEach(function(p){
+    p.classList.remove('active');
+  });
 
-const star=document.createElement("div");
+  document.getElementById(page).classList.add('active');
 
-star.className="star";
-
-star.style.left=Math.random()*100+"vw";
-star.style.top=Math.random()*100+"vh";
-
-const size=Math.random()<.85?2:3;
-
-star.style.width=size+"px";
-star.style.height=size+"px";
-
-star.style.animationDuration=
-(8+Math.random()*12)+"s,"+
-(1+Math.random()*2)+"s";
-
-star.style.animationDelay=
-(-Math.random()*15)+"s,"+
-(-Math.random()*2)+"s";
-
-stars.appendChild(star);
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
 }
 
 
-function toggleFunction(button,name){
+function toggleFunction(btn){
 
-button.classList.toggle("active");
-
-const status=document.getElementById("status");
-
-const active=button.classList.contains("active");
-
-status.textContent=
-active
-? "✓ ATIVADA "+name
-: "× DESATIVADA "+name;
-
-clearTimeout(window.statusTimer);
-
-status.classList.remove("pop");
-
-void status.offsetWidth;
-
-status.classList.add("pop");
-
-window.statusTimer=setTimeout(function(){
-
-status.textContent="STATUS : READY";
-
-},3000);
+  btn.classList.toggle('on');
 
 }
 
 
-function startFF(button){
+function openGame(type){
 
-button.classList.add("clicking");
+  const pkg = type === 'max'
+    ? 'com.dts.freefiremax'
+    : 'com.dts.freefireth';
 
-setTimeout(function(){
+  const intent =
+    'intent://#Intent;' +
+    'scheme=freefire;' +
+    'package=' + pkg +
+    ';end';
 
-location.href=
-'intent://#Intent;scheme=freefire;package=com.dts.freefireth;end';
+  const store =
+    'https://play.google.com/store/apps/details?id=' + pkg;
 
-},180);
+  window.location.href = intent;
+
+  setTimeout(function(){
+
+    window.location.href = store;
+
+  },1500);
 
 }
 
